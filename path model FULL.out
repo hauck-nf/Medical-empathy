@@ -1,0 +1,431 @@
+Mplus VERSION 7.11
+MUTHEN & MUTHEN
+10/13/2020  11:05 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE: Your title goes here
+  DATA: FILE = "nat_b.dat";
+  VARIABLE:
+  NAMES = emp_med drogas cage_to cage_dic dd_maq dd_psi dd_nar ebadep
+       ebb_exau ebb_frus ebb_desp;
+  MISSING=.;
+
+  USEVARIABLE = emp_med dd_maq dd_psi dd_nar ebadep
+  cage_to
+       burnout
+       ;
+
+  !CATEGORICAL = cage_dic;
+
+  DEFINE:
+
+  burnout = (ebb_exau + ebb_frus + ebb_desp)/3;
+
+  ANALYSIS:
+  ESTIMATOR = MLR;
+
+  MODEL:
+  !ebadep ON dd_maq dd_psi dd_nar;
+  !burnout ON dd_maq dd_psi dd_nar;
+
+  !ebadep burnout with ebadep burnout;
+
+  !emp_med ON dd_maq dd_psi dd_nar drogas ebadep burnout;
+
+  !burnout ON dd_maq ebadep;
+  !emp_med ON dd_psi;
+  !cage_to ON dd_nar ebadep;
+  !burnout with emp_med;
+
+  burnout ON dd_maq dd_psi dd_nar;
+  cage_to ON burnout dd_maq dd_psi dd_nar;
+  emp_med ON burnout dd_maq dd_psi dd_nar;
+  ebadep ON burnout dd_maq dd_psi dd_nar;
+
+  OUTPUT: standardized modindices;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+Your title goes here
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         480
+
+Number of dependent variables                                    4
+Number of independent variables                                  3
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   EMP_MED     EBADEP      CAGE_TO     BURNOUT
+
+Observed independent variables
+   DD_MAQ      DD_PSI      DD_NAR
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+
+Input data file(s)
+  nat_b.dat
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             1
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              EMP_MED       EBADEP        CAGE_TO       BURNOUT       DD_MAQ
+              ________      ________      ________      ________      ________
+ EMP_MED        1.000
+ EBADEP         1.000         1.000
+ CAGE_TO        1.000         1.000         1.000
+ BURNOUT        1.000         1.000         1.000         1.000
+ DD_MAQ         1.000         1.000         1.000         1.000         1.000
+ DD_PSI         1.000         1.000         1.000         1.000         1.000
+ DD_NAR         1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              DD_PSI        DD_NAR
+              ________      ________
+ DD_PSI         1.000
+ DD_NAR         1.000         1.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       26
+
+Loglikelihood
+
+          H0 Value                       -4926.562
+          H0 Scaling Correction Factor      1.1445
+            for MLR
+          H1 Value                       -4926.562
+          H1 Scaling Correction Factor      1.1445
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                    9905.124
+          Bayesian (BIC)                 10013.642
+          Sample-Size Adjusted BIC        9931.121
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              0.000*
+          Degrees of Freedom                     0
+          P-Value                           0.0000
+          Scaling Correction Factor         1.0000
+            for MLR
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+          90 Percent C.I.                    0.000  0.000
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                            236.570
+          Degrees of Freedom                    18
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.000
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ BURNOUT  ON
+    DD_MAQ             0.127      0.028      4.459      0.000
+    DD_PSI            -0.009      0.031     -0.293      0.769
+    DD_NAR            -0.006      0.021     -0.274      0.784
+
+ CAGE_TO  ON
+    BURNOUT            0.055      0.030      1.854      0.064
+    DD_MAQ            -0.014      0.019     -0.750      0.453
+    DD_PSI            -0.002      0.021     -0.111      0.911
+    DD_NAR             0.052      0.013      4.083      0.000
+
+ EMP_MED  ON
+    BURNOUT            0.401      0.292      1.371      0.170
+    DD_MAQ            -0.116      0.209     -0.557      0.577
+    DD_PSI            -0.870      0.277     -3.135      0.002
+    DD_NAR            -0.112      0.136     -0.827      0.408
+
+ EBADEP   ON
+    BURNOUT            3.058      0.223     13.718      0.000
+    DD_MAQ             0.366      0.135      2.709      0.007
+    DD_PSI            -0.147      0.155     -0.948      0.343
+    DD_NAR            -0.001      0.105     -0.013      0.989
+
+ EBADEP   WITH
+    EMP_MED            2.029      4.153      0.489      0.625
+
+ CAGE_TO  WITH
+    EMP_MED            0.173      0.425      0.406      0.685
+    EBADEP             0.650      0.307      2.122      0.034
+
+ Intercepts
+    EMP_MED          128.079      2.158     59.337      0.000
+    EBADEP            22.757      1.316     17.294      0.000
+    CAGE_TO            0.129      0.167      0.773      0.440
+    BURNOUT            1.430      0.250      5.709      0.000
+
+ Residual Variances
+    EMP_MED           95.723      9.164     10.445      0.000
+    EBADEP            50.880      3.771     13.491      0.000
+    CAGE_TO            0.884      0.056     15.750      0.000
+    BURNOUT            2.267      0.129     17.559      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ BURNOUT  ON
+    DD_MAQ             0.237      0.054      4.434      0.000
+    DD_PSI            -0.014      0.047     -0.293      0.769
+    DD_NAR            -0.014      0.052     -0.274      0.784
+
+ CAGE_TO  ON
+    BURNOUT            0.089      0.047      1.875      0.061
+    DD_MAQ            -0.043      0.057     -0.750      0.453
+    DD_PSI            -0.006      0.050     -0.111      0.911
+    DD_NAR             0.207      0.049      4.179      0.000
+
+ EMP_MED  ON
+    BURNOUT            0.062      0.045      1.368      0.171
+    DD_MAQ            -0.033      0.060     -0.557      0.578
+    DD_PSI            -0.202      0.062     -3.270      0.001
+    DD_NAR            -0.043      0.052     -0.821      0.412
+
+ EBADEP   ON
+    BURNOUT            0.542      0.035     15.557      0.000
+    DD_MAQ             0.121      0.045      2.707      0.007
+    DD_PSI            -0.039      0.041     -0.949      0.343
+    DD_NAR            -0.001      0.046     -0.013      0.989
+
+ EBADEP   WITH
+    EMP_MED            0.029      0.060      0.485      0.628
+
+ CAGE_TO  WITH
+    EMP_MED            0.019      0.046      0.405      0.685
+    EBADEP             0.097      0.045      2.174      0.030
+
+ Intercepts
+    EMP_MED           12.721      0.636     20.009      0.000
+    EBADEP             2.608      0.175     14.876      0.000
+    CAGE_TO            0.134      0.174      0.771      0.441
+    BURNOUT            0.925      0.166      5.559      0.000
+
+ Residual Variances
+    EMP_MED            0.944      0.027     34.391      0.000
+    EBADEP             0.668      0.039     17.093      0.000
+    CAGE_TO            0.954      0.019     50.651      0.000
+    BURNOUT            0.949      0.020     47.507      0.000
+
+
+STDY Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ BURNOUT  ON
+    DD_MAQ             0.082      0.018      4.511      0.000
+    DD_PSI            -0.006      0.020     -0.293      0.769
+    DD_NAR            -0.004      0.014     -0.274      0.784
+
+ CAGE_TO  ON
+    BURNOUT            0.089      0.047      1.875      0.061
+    DD_MAQ            -0.015      0.020     -0.751      0.453
+    DD_PSI            -0.002      0.021     -0.111      0.911
+    DD_NAR             0.054      0.013      4.202      0.000
+
+ EMP_MED  ON
+    BURNOUT            0.062      0.045      1.368      0.171
+    DD_MAQ            -0.012      0.021     -0.557      0.578
+    DD_PSI            -0.086      0.026     -3.317      0.001
+    DD_NAR            -0.011      0.014     -0.821      0.411
+
+ EBADEP   ON
+    BURNOUT            0.542      0.035     15.557      0.000
+    DD_MAQ             0.042      0.015      2.725      0.006
+    DD_PSI            -0.017      0.018     -0.950      0.342
+    DD_NAR             0.000      0.012     -0.013      0.989
+
+ EBADEP   WITH
+    EMP_MED            0.029      0.060      0.485      0.628
+
+ CAGE_TO  WITH
+    EMP_MED            0.019      0.046      0.405      0.685
+    EBADEP             0.097      0.045      2.174      0.030
+
+ Intercepts
+    EMP_MED           12.721      0.636     20.009      0.000
+    EBADEP             2.608      0.175     14.876      0.000
+    CAGE_TO            0.134      0.174      0.771      0.441
+    BURNOUT            0.925      0.166      5.559      0.000
+
+ Residual Variances
+    EMP_MED            0.944      0.027     34.391      0.000
+    EBADEP             0.668      0.039     17.093      0.000
+    CAGE_TO            0.954      0.019     50.651      0.000
+    BURNOUT            0.949      0.020     47.507      0.000
+
+
+STD Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ BURNOUT  ON
+    DD_MAQ             0.127      0.028      4.459      0.000
+    DD_PSI            -0.009      0.031     -0.293      0.769
+    DD_NAR            -0.006      0.021     -0.274      0.784
+
+ CAGE_TO  ON
+    BURNOUT            0.055      0.030      1.854      0.064
+    DD_MAQ            -0.014      0.019     -0.750      0.453
+    DD_PSI            -0.002      0.021     -0.111      0.911
+    DD_NAR             0.052      0.013      4.083      0.000
+
+ EMP_MED  ON
+    BURNOUT            0.401      0.292      1.371      0.170
+    DD_MAQ            -0.116      0.209     -0.557      0.577
+    DD_PSI            -0.870      0.277     -3.135      0.002
+    DD_NAR            -0.112      0.136     -0.827      0.408
+
+ EBADEP   ON
+    BURNOUT            3.058      0.223     13.718      0.000
+    DD_MAQ             0.366      0.135      2.709      0.007
+    DD_PSI            -0.147      0.155     -0.948      0.343
+    DD_NAR            -0.001      0.105     -0.013      0.989
+
+ EBADEP   WITH
+    EMP_MED            2.029      4.153      0.489      0.625
+
+ CAGE_TO  WITH
+    EMP_MED            0.173      0.425      0.406      0.685
+    EBADEP             0.650      0.307      2.122      0.034
+
+ Intercepts
+    EMP_MED          128.079      2.158     59.337      0.000
+    EBADEP            22.757      1.316     17.294      0.000
+    CAGE_TO            0.129      0.167      0.773      0.440
+    BURNOUT            1.430      0.250      5.709      0.000
+
+ Residual Variances
+    EMP_MED           95.723      9.164     10.445      0.000
+    EBADEP            50.880      3.771     13.491      0.000
+    CAGE_TO            0.884      0.056     15.750      0.000
+    BURNOUT            2.267      0.129     17.559      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    EMP_MED            0.056      0.027      2.029      0.042
+    EBADEP             0.332      0.039      8.479      0.000
+    CAGE_TO            0.046      0.019      2.419      0.016
+    BURNOUT            0.051      0.020      2.547      0.011
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.797E-06
+       (ratio of smallest to largest eigenvalue)
+
+
+MODEL MODIFICATION INDICES
+
+NOTE:  Modification indices for direct effects of observed dependent variables
+regressed on covariates may not be included.  To include these, request
+MODINDICES (ALL).
+
+Minimum M.I. value for printing the modification index    10.000
+
+                                   M.I.     E.P.C.  Std E.P.C.  StdYX E.P.C.
+
+ON Statements
+
+CAGE_TO  ON EMP_MED              999.000     0.000      0.000        0.000
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    c:\users\hauck\onedrive\google drive\manuscritos\artigo mak & natalia - empatia médica\nat_b.dgm
+
+     Beginning Time:  11:05:33
+        Ending Time:  11:05:33
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2013 Muthen & Muthen
